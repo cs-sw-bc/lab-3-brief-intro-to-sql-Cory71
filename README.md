@@ -31,13 +31,13 @@ Students will install **XAMPP**.
 Steps:
 
 1. Open **MySQL Workbench**
-2. Create a new schema: `training`
+2. Create a new schema: `mavenmovies`
 3. Go to **Server → Data Import**
 4. Import the provided `.sql` dump file
 5. Confirm tables exist using:
 
 ```sql
-SELECT * FROM books;
+SELECT * FROM film LIMIT 5;
 ```
 
 ---
@@ -61,98 +61,224 @@ Each topic has a **Learn** + **Do** activity.
 
 **Do:**
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT 'Hello SQL';"
+```
+
+**MySQL Command:**
 ```sql
 SELECT 'Hello SQL';
 ```
 
 ### SQL SELECT
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, release_year FROM film LIMIT 10;"
+```
+
+**MySQL Command:**
 ```sql
-SELECT title, author FROM books;
+SELECT title, release_year FROM film LIMIT 10;
 ```
 
 ### SQL SELECT DISTINCT
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT DISTINCT rating FROM film;"
+```
+
+**MySQL Command:**
 ```sql
-SELECT DISTINCT genre FROM books;
+SELECT DISTINCT rating FROM film;
 ```
 
 ### SQL WHERE
 
+**PowerShell Commands:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, release_year, rating FROM film WHERE rating = 'PG' LIMIT 10;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, release_year, rating FROM film WHERE rating = 'R' LIMIT 5;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, length FROM film WHERE length > 150 LIMIT 5;"
+```
+
+**MySQL Commands:**
 ```sql
-SELECT * FROM books WHERE genre = 'Fiction';
+SELECT title, release_year, rating FROM film WHERE rating = 'PG' LIMIT 10;
+SELECT title, release_year, rating FROM film WHERE rating = 'R' LIMIT 5;
+SELECT title, length FROM film WHERE length > 150 LIMIT 5;
 ```
 
 ### SQL ORDER BY
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, release_year FROM film ORDER BY release_year DESC LIMIT 10;"
+```
+
+**MySQL Command:**
 ```sql
-SELECT * FROM books ORDER BY published_year DESC;
+SELECT title, release_year FROM film ORDER BY release_year DESC LIMIT 10;
 ```
 
 ### SQL AND / OR / NOT
 
+**PowerShell Commands:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, rating, length FROM film WHERE rating = 'PG' AND length > 120;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, rating, length FROM film WHERE rating = 'G' OR rating = 'PG' LIMIT 10;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, rating FROM film WHERE NOT rating = 'NC-17' LIMIT 10;"
+```
+
+**MySQL Commands:**
 ```sql
-SELECT * FROM books
-WHERE genre = 'Mystery' AND published_year > 2010;
+SELECT title, rating, length FROM film WHERE rating = 'PG' AND length > 120;
+SELECT title, rating, length FROM film WHERE rating = 'G' OR rating = 'PG' LIMIT 10;
+SELECT title, rating FROM film WHERE NOT rating = 'NC-17' LIMIT 10;
 ```
 
 ### SQL INSERT
 
+**PowerShell Commands:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "INSERT INTO actor (first_name, last_name) VALUES ('John', 'Rodriguez');"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "INSERT INTO actor (first_name, last_name) VALUES ('Jane', 'Thompson');"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "INSERT INTO actor (first_name, last_name) VALUES ('Mike', 'Anderson');"
+```
+
+**MySQL Commands:**
 ```sql
-INSERT INTO books (title, author, published_year, genre)
-VALUES ('New Book', 'Student', 2024, 'Fantasy');
+INSERT INTO actor (first_name, last_name) VALUES ('John', 'Rodriguez');
+INSERT INTO actor (first_name, last_name) VALUES ('Jane', 'Thompson');
+INSERT INTO actor (first_name, last_name) VALUES ('Mike', 'Anderson');
 ```
 
 ### SQL UPDATE
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "UPDATE actor SET first_name = 'Johnny' WHERE first_name = 'John' AND last_name = 'Rodriguez';"
+```
+
+**MySQL Command:**
 ```sql
-UPDATE books
-SET published_year = 2020
-WHERE title = 'New Book';
+UPDATE actor SET first_name = 'Johnny' WHERE first_name = 'John' AND last_name = 'Rodriguez';
 ```
 
 ### SQL DELETE
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "DELETE FROM actor WHERE first_name = 'Mike' AND last_name = 'Anderson';"
+```
+
+**MySQL Command:**
 ```sql
-DELETE FROM books WHERE title = 'New Book';
+DELETE FROM actor WHERE first_name = 'Mike' AND last_name = 'Anderson';
 ```
 
 ### SQL LIMIT
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, release_year, rating FROM film LIMIT 5;"
+```
+
+**MySQL Command:**
 ```sql
-SELECT * FROM books LIMIT 5;
+SELECT title, release_year, rating FROM film LIMIT 5;
 ```
 
 ### SQL Aggregate Functions
 
+**PowerShell Commands:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT COUNT(*) AS total_films FROM film;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT MIN(release_year) AS earliest_year FROM film;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT AVG(length) AS average_length FROM film;"
+```
+
+**MySQL Commands:**
 ```sql
-SELECT COUNT(*) AS total_books FROM books;
-SELECT MIN(published_year) FROM books;
-SELECT AVG(pages) FROM books;
+SELECT COUNT(*) AS total_films FROM film;
+SELECT MIN(release_year) AS earliest_year FROM film;
+SELECT AVG(length) AS average_length FROM film;
 ```
 
 ### SQL LIKE
 
+**PowerShell Commands:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, release_year FROM film WHERE title LIKE '%LOVE%';"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title FROM film WHERE title LIKE 'A%' LIMIT 10;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title FROM film WHERE title LIKE '%WAR%' LIMIT 5;"
+```
+
+**MySQL Commands:**
 ```sql
-SELECT * FROM books WHERE title LIKE '%love%';
+SELECT title, release_year FROM film WHERE title LIKE '%LOVE%';
+SELECT title FROM film WHERE title LIKE 'A%' LIMIT 10;
+SELECT title FROM film WHERE title LIKE '%WAR%' LIMIT 5;
 ```
 
 ### SQL IN
 
+**PowerShell Commands:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, rating FROM film WHERE rating IN ('PG', 'G') LIMIT 10;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, rating FROM film WHERE rating IN ('R', 'NC-17') LIMIT 10;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, rating FROM film WHERE rating IN ('PG-13') LIMIT 10;"
+```
+
+**MySQL Commands:**
 ```sql
-SELECT * FROM books WHERE genre IN ('Fiction', 'Sci-Fi');
+SELECT title, rating FROM film WHERE rating IN ('PG', 'G') LIMIT 10;
+SELECT title, rating FROM film WHERE rating IN ('R', 'NC-17') LIMIT 10;
+SELECT title, rating FROM film WHERE rating IN ('PG-13') LIMIT 10;
 ```
 
 ### SQL BETWEEN
 
+**PowerShell Commands:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, length FROM film WHERE length BETWEEN 90 AND 120 LIMIT 10;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, length FROM film WHERE length BETWEEN 150 AND 180 LIMIT 5;"
+
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title, rental_rate FROM film WHERE rental_rate BETWEEN 2.00 AND 4.00 LIMIT 10;"
+```
+
+**MySQL Commands:**
 ```sql
-SELECT * FROM books WHERE published_year BETWEEN 2000 AND 2010;
+SELECT title, length FROM film WHERE length BETWEEN 90 AND 120 LIMIT 10;
+SELECT title, length FROM film WHERE length BETWEEN 150 AND 180 LIMIT 5;
+SELECT title, rental_rate FROM film WHERE rental_rate BETWEEN 2.00 AND 4.00 LIMIT 10;
 ```
 
 ### SQL Aliases
 
+**PowerShell Command:**
+```powershell
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT title AS Movie, release_year AS Year FROM film LIMIT 10;"
+```
+
+**MySQL Command:**
 ```sql
-SELECT title AS Book, published_year AS Year FROM books;
+SELECT title AS Movie, release_year AS Year FROM film LIMIT 10;
 ```
 
 ---
@@ -161,10 +287,42 @@ SELECT title AS Book, published_year AS Year FROM books;
 
 Students must:
 
-* **Create:** Insert 2 new rows
-* **Read:** List all rows + filter + sort
-* **Update:** Update at least 1 row
-* **Delete:** Delete at least 1 row
+* **Create:** Insert 2 new actors (John Rodriguez, Jane Thompson)
+* **Read:** List all actors + filter by name + sort by last name
+* **Update:** Update John's name to Johnny
+* **Delete:** Delete Mike Anderson from actors
+
+**Example CRUD Commands:**
+
+**PowerShell Commands:**
+```powershell
+# CREATE
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "INSERT INTO actor (first_name, last_name) VALUES ('Sarah', 'Williams');"
+
+# READ
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "SELECT * FROM actor WHERE last_name LIKE '%Rodriguez%';"
+
+# UPDATE
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "UPDATE actor SET first_name = 'NewName' WHERE actor_id = (SELECT MAX(actor_id) FROM (SELECT * FROM actor) as temp);"
+
+# DELETE
+& "C:\xampp\mysql\bin\mysql.exe" -u root mavenmovies -e "DELETE FROM actor WHERE first_name = 'Sarah' AND last_name = 'Williams';"
+```
+
+**MySQL Commands:**
+```sql
+-- CREATE
+INSERT INTO actor (first_name, last_name) VALUES ('Sarah', 'Williams');
+
+-- READ
+SELECT * FROM actor WHERE last_name LIKE '%Rodriguez%';
+
+-- UPDATE
+UPDATE actor SET first_name = 'NewName' WHERE actor_id = (SELECT MAX(actor_id) FROM (SELECT * FROM actor) as temp);
+
+-- DELETE
+DELETE FROM actor WHERE first_name = 'Sarah' AND last_name = 'Williams';
+```
 
 ---
 
